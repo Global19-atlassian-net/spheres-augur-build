@@ -1,0 +1,193 @@
+# Define path to the conda environment file.
+conda_environment: "../../spheres_profile/conda.yaml"
+
+# Define custom auspice configuration to enable frequencies.
+files:
+  auspice_config: "spheres_profile/auspice_config.json"
+
+# Define builds for each state and territory.
+builds:
+  alabama:
+    subsampling_scheme: state-territory
+    division: Alabama
+  alaska:
+    subsampling_scheme: state-territory
+    division: Alaska
+  arizona:
+    subsampling_scheme: state-territory
+    division: Arizona
+  arkansas:
+    subsampling_scheme: state-territory
+    division: Arkansas
+  california:
+    subsampling_scheme: state-territory
+    division: California
+  colorado:
+    subsampling_scheme: state-territory
+    division: Colorado
+  connecticut:
+    subsampling_scheme: state-territory
+    division: Connecticut
+  delaware:
+    subsampling_scheme: state-territory
+    division: Delaware
+  district-of-columbia:
+    subsampling_scheme: state-territory
+    division: District of Columbia
+  florida:
+    subsampling_scheme: state-territory
+    division: Florida
+  georgia:
+    subsampling_scheme: state-territory
+    division: Georgia
+  hawaii:
+    subsampling_scheme: state-territory
+    division: Hawaii
+  idaho:
+    subsampling_scheme: state-territory
+    division: Idaho
+  illinois:
+    subsampling_scheme: state-territory
+    division: Illinois
+  indiana:
+    subsampling_scheme: state-territory
+    division: Indiana
+  iowa:
+    subsampling_scheme: state-territory
+    division: Iowa
+  kansas:
+    subsampling_scheme: state-territory
+    division: Kansas
+  kentucky:
+    subsampling_scheme: state-territory
+    division: Kentucky
+  louisiana:
+    subsampling_scheme: state-territory
+    division: Louisiana
+  maine:
+    subsampling_scheme: state-territory
+    division: Maine
+  montana:
+    subsampling_scheme: state-territory
+    division: Montana
+  nebraska:
+    subsampling_scheme: state-territory
+    division: Nebraska
+  nevada:
+    subsampling_scheme: state-territory
+    division: Nevada
+  new-hampshire:
+    subsampling_scheme: state-territory
+    division: New Hampshire
+  new-jersey:
+    subsampling_scheme: state-territory
+    division: New Jersey
+  new-mexico:
+    subsampling_scheme: state-territory
+    division: New Mexico
+  new-york:
+    subsampling_scheme: state-territory
+    division: New York
+  north-carolina:
+    subsampling_scheme: state-territory
+    division: North Carolina
+  north-dakota:
+    subsampling_scheme: state-territory
+    division: North Dakota
+  ohio:
+    subsampling_scheme: state-territory
+    division: Ohio
+  oklahoma:
+    subsampling_scheme: state-territory
+    division: Oklahoma
+  oregon:
+    subsampling_scheme: state-territory
+    division: Oregon
+  maryland:
+    subsampling_scheme: state-territory
+    division: Maryland
+  massachusetts:
+    subsampling_scheme: state-territory
+    division: Massachusetts
+  michigan:
+    subsampling_scheme: state-territory
+    division: Michigan
+  minnesota:
+    subsampling_scheme: state-territory
+    division: Minnesota
+  mississippi:
+    subsampling_scheme: state-territory
+    division: Mississippi
+  missouri:
+    subsampling_scheme: state-territory
+    division: Missouri
+  pennsylvania:
+    subsampling_scheme: state-territory
+    division: Pennsylvania
+  puerto-rico:
+    subsampling_scheme: state-territory
+    division: Puerto Rico
+  rhode-island:
+    subsampling_scheme: state-territory
+    division: Rhode Island
+  south-carolina:
+    subsampling_scheme: state-territory
+    division: South Carolina
+  south-dakota:
+    subsampling_scheme: state-territory
+    division: South Dakota
+  tennessee:
+    subsampling_scheme: state-territory
+    division: Tennessee
+  texas:
+    subsampling_scheme: state-territory
+    division: Texas
+  utah:
+    subsampling_scheme: state-territory
+    division: Utah
+  vermont:
+    subsampling_scheme: state-territory
+    division: Vermont
+  virginia:
+    subsampling_scheme: state-territory
+    division: Virginia
+  washington:
+    subsampling_scheme: state-territory
+    division: Washington
+  west-virginia:
+    subsampling_scheme: state-territory
+    division: West Virginia
+  wisconsin:
+    subsampling_scheme: state-territory
+    division: Wisconsin
+  wyoming:
+    subsampling_scheme: state-territory
+    division: Wyoming
+
+# Define subsampling scheme for state- and territory-level (hereafter
+# "division") builds. This scheme should include as much local diversity for a
+# given division as possible and contextual samples from the rest of the USA and
+# the world.
+subsampling:
+  state-territory:
+    local-focus:
+      # Evenly sample across time for the current division.
+      group_by: "year month"
+      seq_per_group: 30
+      query: --query "(country == 'USA' & division == '{division}')"
+    usa-context:
+      # Evenly sample across time from each division other than the current division.
+      group_by: "division year month"
+      seq_per_group: 5
+      query: --query "(country == 'USA' & division != '{division}')"
+      priorities:
+        type: proximity
+        focus: local-focus
+    global-context:
+      # Evenly sample across time from the rest of the world excluding the USA.
+      group_by: "region year month"
+      seq_per_group: 20
+      query: --query "(country != 'USA')"
+      priorities:
+        type: proximity
+        focus: local-focus
