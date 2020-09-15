@@ -16,7 +16,7 @@
         "partition": "-p campus-new",
         "time": "2:00:00",
         "memory": "16384",
-        "cores": 4
+        "cores": 8
     },
     "refine": {
         "partition": "-p campus-new",
