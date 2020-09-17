@@ -1,5 +1,4 @@
 {
-  "title": "My title here",
   "build_url": "https://github.com/myusername/myrepository/",
   "maintainers": [
     {"name": "My name", "url": "www.myurl.com"}

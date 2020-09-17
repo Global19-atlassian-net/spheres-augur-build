@@ -1,5 +1,26 @@
 # Custom profile for SPHERES augur builds
 
+## Auspice configuration
+
+Update the following fields in the auspice configuration file, `spheres_profile/auspice_config.json`, to reflect the current repository and maintainers.
+
+  - `build_url`
+  - `maintainers`
+
+## Snakemake configuration
+
+The original profile was tested on a SLURM cluster.
+Modify how Snakemake is executed by editing the `spheres_profile/config.yaml` file.
+Update the `cluster` directive to work with the style of cluster where this workflow will be run.
+See [Snakemake's profile examples about different cluster types](https://github.com/Snakemake-Profiles/doc) and [documentation about configuring cluster execution](https://snakemake.readthedocs.io/en/stable/executing/cluster.html), for more details.
+
+By default, this profile uses conda and [Snakemake's integrated package management](https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html#integrated-package-management) to ensure each rule is executed in the correct environment.
+To enable this feature, [install miniconda](https://docs.conda.io/en/latest/miniconda.html) prior to running the workflow.
+To disable this feature, remove the `use-conda` directive from `spheres_profile/config.yaml`.
+To update Nextstrain dependencies or add your own custom dependencies, modify `spheres_profile/conda.yaml`.
+The next time you run the workflow, Snakemake will detect these modifications and rebuild your conda environment automatically.
+For more details, see [the Nextstrain team's description of how to manage software in Snakemake workflows](https://discussion.nextstrain.org/t/make-reproducible-workflows-with-conda-environments-and-pinned-augur-versions/107).
+
 ## State- and territory-level colors
 
 Each state- and territory-level build has its own custom color profile for display in auspice.
