@@ -15,7 +15,7 @@ cd spheres-augur-build/
 ```
 
 Modify build definitions, as needed, in `spheres_profile/builds.yaml`.
-Modify general Snakemake configuration (e.g., how the workflow is parallelized, distributed to a cluster, etc.) in `spheres_profile/config.yaml`.
+For more details about modifying builds, [see the SPHERES profile README](spheres_profile/README.md).
 Run the workflow.
 
 ```bash
