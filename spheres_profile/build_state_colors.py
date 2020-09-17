@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     # Load builds YAML.
     with open(args.builds, "r") as fh:
-        builds = yaml.load(fh)
+        builds = yaml.load(fh, Loader=yaml.FullLoader)
 
     # Collect a list of states/territories.
     states_by_build = {build: attributes["division"] for build, attributes in builds["builds"].items()}

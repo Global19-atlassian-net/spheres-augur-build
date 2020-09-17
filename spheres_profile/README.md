@@ -21,10 +21,10 @@ To update Nextstrain dependencies or add your own custom dependencies, modify `s
 The next time you run the workflow, Snakemake will detect these modifications and rebuild your conda environment automatically.
 For more details, see [the Nextstrain team's description of how to manage software in Snakemake workflows](https://discussion.nextstrain.org/t/make-reproducible-workflows-with-conda-environments-and-pinned-augur-versions/107).
 
-## State- and territory-level colors
+## State- and territory-level colors and descriptions
 
-Each state- and territory-level build has its own custom color profile for display in auspice.
-These color profiles use a base color scheme based on [Emma Hodcroft's colors for her Southern USA builds](https://raw.githubusercontent.com/emmahodcroft/south-usa-sarscov2/master/profiles/south-central/colors.tsv).
+Each state- and territory-level build has its own custom color profile and descriptions for display in auspice.
+Color profiles use a base color scheme based on [Emma Hodcroft's colors for her Southern USA builds](https://raw.githubusercontent.com/emmahodcroft/south-usa-sarscov2/master/profiles/south-central/colors.tsv).
 For each build, the given build's state or territory is given a red color to clearly distinguish that division from other divisions in the auspice view.
 To build these custom build-level color schemes, run the following command from the top-level of the repository.
 
@@ -37,3 +37,15 @@ python3 spheres_profile/build_state_colors.py \
 ```
 
 Then modify the revised builds, as needed, for readability and replace the original builds YAML with this new file.
+
+To build the custom build-level description Markdown files, run the following command from the top-level of the repository.
+
+```python
+python3 spheres_profile/build_state_descriptions.py \
+    --builds spheres_profile/builds.yaml \
+    --descriptions-directory spheres_profile/state_descriptions/ \
+    --revised-builds spheres_profile/revised_builds.yaml
+```
+
+As with the revised builds for colors, copy the updated `builds` section of the revised builds YAML produced by the command above into the main `builds.yaml` file.
+Modify the contents of files in `spheres_profile/state_descriptions/` to customize the description for each state or territory.
